@@ -3,8 +3,8 @@
     shuffleOrder: true,
     randomHide: true,
     showChance: 0.35,
-    maxRows: 5,
-    minRows: 3,
+    maxRows: 10,
+    minRows: 5,
   };
 
   const CONFIG = [
@@ -17,9 +17,7 @@
     { genre: "Drama", aliases: ["Drama"] },
     { genre: "Familie", aliases: ["Familie", "Family"] },
     { genre: "Fantasy", aliases: ["Fantasy"] },
-    { genre: "Historie", aliases: ["Historie", "History"] },
     { genre: "Horror", aliases: ["Horror"] },
-    { genre: "Musik", aliases: ["Musik", "Music"] },
     { genre: "Mystery", aliases: ["Mystery"] },
     { genre: "Liebesfilm", aliases: ["Liebesfilm", "Romance"] },
     {
@@ -28,10 +26,6 @@
     },
     { genre: "Thriller", aliases: ["Thriller"] },
     { genre: "Kriegsfilm", aliases: ["Kriegsfilm", "War", "War & Politics"] },
-    { genre: "Western", aliases: ["Western"] },
-    { genre: "Reality-TV", aliases: ["Reality-TV", "Reality"] },
-    { genre: "Anime", aliases: ["Anime"] },
-    { genre: "Miniserie", aliases: ["Miniserie", "Mini-Series", "Miniseries"] },
   ];
 
   const TYPES = "Movie,Series";
