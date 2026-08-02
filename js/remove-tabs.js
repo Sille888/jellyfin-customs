@@ -51,6 +51,12 @@
   };
 
   window.addEventListener("hashchange", schedule);
-  new MutationObserver(schedule).observe(document.body, { childList: true });
+  // subtree: true ist nötig – Jellyfins interne SPA-Navigation feuert nicht
+  // zuverlässig "hashchange", und die View wird tief verschachtelt neu
+  // aufgebaut, nicht als direktes Kind von body (siehe core.js).
+  new MutationObserver(schedule).observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
   apply();
 })();
