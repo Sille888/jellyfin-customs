@@ -96,8 +96,16 @@
   </div>
 </div>`;
 
+  // home.isConnected reicht nicht: alte Home-Container bleiben laut
+  // Jellyfin nur versteckt (.hide) im DOM, statt entfernt zu werden. Ohne
+  // diesen Check landen langsamere Provider (genres, because-you-watched)
+  // nach einem Container-Swap unsichtbar im alten Container.
+  function isCurrentHome(home) {
+    return document.querySelector(".homeSectionsContainer:not(.hide)") === home;
+  }
+
   async function renderRow(home, row, providerId) {
-    if (!row?.items?.length || !home.isConnected) return;
+    if (!row?.items?.length || !isCurrentHome(home)) return;
     const sid = ApiClient.serverId();
     const s = SHAPES[row.shape] || SHAPES.portrait;
 
@@ -226,10 +234,12 @@
           }),
         ),
       );
-      if (!home.isConnected) return; // Seite wurde neu gebaut
+      if (!isCurrentHome(home)) return; // Seite wurde neu gebaut / Container ausgetauscht
       for (let i = 0; i < pending.length; i++) {
-        for (const row of [].concat(results[i] || []))
+        for (const row of [].concat(results[i] || [])) {
+          if (!isCurrentHome(home)) return;
           await renderRow(home, row, pending[i].id);
+        }
       }
     } finally {
       busy = false;
