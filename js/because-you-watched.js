@@ -36,7 +36,9 @@
     return {
       title: `Weil du „${source.Name}" gesehen hast`,
       shape: SETTINGS.shape,
-      items: similar.Items,
+      // Der Similar-Endpoint hält "limit" serverseitig nicht zuverlässig ein
+      // -> hier zusätzlich clientseitig kappen.
+      items: similar.Items.slice(0, SETTINGS.limit),
       href: `#/details?id=${source.Id}&serverId=${h.sid()}`,
     };
   }
