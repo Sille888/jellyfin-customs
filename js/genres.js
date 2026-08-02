@@ -29,7 +29,7 @@
   ];
 
   const TYPES = "Movie,Series";
-  const DEFAULT_LIMIT = 20;
+  const DEFAULT_LIMIT = 18;
   const DEFAULT_SHAPE = "portrait";
 
   function pick(h) {
