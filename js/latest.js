@@ -3,7 +3,7 @@
     movies: {
       enabled: true,
       title: "Neueste Filme",
-      limit: 6,
+      limit: 16,
       shape: "portrait",
     },
     series: {
