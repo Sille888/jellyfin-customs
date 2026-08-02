@@ -1,6 +1,6 @@
 (() => {
   const LIBRARIES = {
-    "7a2175bccb1f1a94152cbd2b2bae8f6d": { hideTabs: [0, 2, 3] }, // Filme: Tab-Indizes
+    "7a2175bccb1f1a94152cbd2b2bae8f6d": { hideTabs: [1, 2, 3] }, // Filme: Tab-Indizes
     "43cfe12fe7d9d8d21251e0964e0232e2": { hideAll: true }, // Serien
   };
 
