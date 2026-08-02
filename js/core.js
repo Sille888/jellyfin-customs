@@ -96,7 +96,7 @@
   </div>
 </div>`;
 
-  async function renderRow(home, row) {
+  async function renderRow(home, row, providerId) {
     if (!row?.items?.length || !home.isConnected) return;
     const sid = ApiClient.serverId();
     const s = SHAPES[row.shape] || SHAPES.portrait;
@@ -104,6 +104,7 @@
     const sec = document.createElement("div");
     sec.className = "verticalSection emby-scroller-container customJfRow";
     sec.dataset.rowTitle = row.title;
+    sec.dataset.providerId = providerId;
     home.appendChild(sec);
 
     sec.innerHTML = `
@@ -136,8 +137,9 @@
 
   // ── Provider-Registry ──────────────────────────────────────────
   const providers = [];
+  let nextProviderId = 0;
   function add(fn, order = 100) {
-    providers.push({ fn, order });
+    providers.push({ fn, order, id: nextProviderId++ });
     providers.sort((a, b) => a.order - b.order);
   }
 
@@ -198,23 +200,36 @@
     if (!location.hash.startsWith("#/home")) return;
     const home = document.querySelector(".homeSectionsContainer:not(.hide)");
     if (!home) return;
-    if (home.querySelector(".customJfRow")) return; // schon da -> nichts tun
+
+    // Pro Provider am DOM prüfen, nicht an einem Flag: Provider ohne eigene
+    // Reihe(n) im DOM werden erneut versucht (z.B. nach einem transienten
+    // Fehler), Provider mit Reihe(n) übersprungen. Nach dem Leeren des
+    // Containers (Haus-Icon-Klick, Container bleibt aber erhalten) sind
+    // automatisch alle Tags weg -> alles läuft sauber neu an.
+    const pending = providers.filter(
+      (p) => !home.querySelector(`.customJfRow[data-provider-id="${p.id}"]`),
+    );
+    if (!pending.length) return; // alle Provider haben schon Reihen im DOM
 
     busy = true;
     try {
-      // Alle Provider parallel abfragen (unabhängige API-Calls), aber die
-      // Reihen weiterhin sequenziell in Provider-Reihenfolge rendern.
+      // Alle offenen Provider parallel abfragen (unabhängige API-Calls),
+      // die Reihen aber weiterhin sequenziell in Provider-Reihenfolge rendern.
       const results = await Promise.all(
-        providers.map((p) =>
+        pending.map((p) =>
           p.fn(helpers).catch((e) => {
-            console.warn("[JFHome] Provider-Fehler:", e);
+            console.warn(
+              "[JFHome] Provider-Fehler, wird beim nächsten Lauf erneut versucht:",
+              e,
+            );
             return [];
           }),
         ),
       );
       if (!home.isConnected) return; // Seite wurde neu gebaut
-      for (const rows of results) {
-        for (const row of [].concat(rows || [])) await renderRow(home, row);
+      for (let i = 0; i < pending.length; i++) {
+        for (const row of [].concat(results[i] || []))
+          await renderRow(home, row, pending[i].id);
       }
     } finally {
       busy = false;
