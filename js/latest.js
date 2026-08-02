@@ -3,13 +3,13 @@
     movies: {
       enabled: true,
       title: "Neueste Filme",
-      limit: 13,
+      limit: 16,
       shape: "portrait",
     },
     series: {
       enabled: true,
       title: "Neueste Serien",
-      limit: 13,
+      limit: 16,
       shape: "portrait",
     },
     maxAgeDays: null, // z.B. 365 = nur letztes Jahr, null = ohne Grenze

@@ -52,37 +52,42 @@
   }
 
   async function provider(h) {
-    const rows = [];
-    for (const cfg of pick(h)) {
-      const names = cfg.aliases ?? [cfg.genre];
-      const q = {
-        Genres: names.join("|"),
-        IncludeItemTypes: TYPES,
-        Limit: cfg.limit ?? DEFAULT_LIMIT,
-        SortBy: "Random",
-      };
-      if (cfg.parentId) q.ParentId = cfg.parentId;
+    // Alle gewählten Genres parallel abfragen statt nacheinander — bei
+    // maxRows: 10 sonst zehn sequenzielle Roundtrips. Promise.all erhält
+    // die Reihenfolge, die Zeilenreihenfolge bleibt also wie von pick()
+    // vorgegeben.
+    const rows = await Promise.all(
+      pick(h).map(async (cfg) => {
+        const names = cfg.aliases ?? [cfg.genre];
+        const q = {
+          Genres: names.join("|"),
+          IncludeItemTypes: TYPES,
+          Limit: cfg.limit ?? DEFAULT_LIMIT,
+          SortBy: "Random",
+        };
+        if (cfg.parentId) q.ParentId = cfg.parentId;
 
-      const res = await h.items(q);
-      if (!res.Items.length) continue;
+        const res = await h.items(q);
+        if (!res.Items.length) return null;
 
-      let gid;
-      for (const n of names) {
-        gid = await h.genreId(n);
-        if (gid) break;
-      }
+        let gid;
+        for (const n of names) {
+          gid = await h.genreId(n);
+          if (gid) break;
+        }
 
-      rows.push({
-        title: cfg.genre,
-        shape: cfg.shape ?? DEFAULT_SHAPE,
-        items: res.Items,
-        href: gid
-          ? `#/list?genreId=${gid}&serverId=${h.sid()}` +
-            (cfg.parentId ? `&parentId=${cfg.parentId}` : "")
-          : `#/search?query=${encodeURIComponent(cfg.genre)}`,
-      });
-    }
-    return rows;
+        return {
+          title: cfg.genre,
+          shape: cfg.shape ?? DEFAULT_SHAPE,
+          items: res.Items,
+          href: gid
+            ? `#/list?genreId=${gid}&serverId=${h.sid()}` +
+              (cfg.parentId ? `&parentId=${cfg.parentId}` : "")
+            : `#/search?query=${encodeURIComponent(cfg.genre)}`,
+        };
+      }),
+    );
+    return rows.filter(Boolean);
   }
 
   (window.JFHome?.add ?? ((f, o) => (window.JFHomeQueue ??= []).push([f, o])))(

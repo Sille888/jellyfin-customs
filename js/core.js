@@ -164,21 +164,20 @@
       const v = await helpers.views();
       return v.find((x) => x.CollectionType === collectionType)?.Id;
     },
-    _genreMap: null,
+    _genreMapPromise: null,
     async genreId(name) {
-      if (!helpers._genreMap) {
-        const r = await ApiClient.getJSON(
-          ApiClient.getUrl("Genres", {
-            userId: ApiClient.getCurrentUserId(),
-            Recursive: true,
-            EnableImages: false,
-          }),
-        );
-        helpers._genreMap = new Map(
-          r.Items.map((g) => [g.Name.toLowerCase(), g.Id]),
-        );
-      }
-      return helpers._genreMap.get(name.toLowerCase());
+      // Promise selbst cachen, nicht erst das Ergebnis: sonst lösen mehrere
+      // parallele genreId()-Aufrufe (z.B. aus genres.js) je einen eigenen
+      // Genres-Request aus, solange der erste noch läuft.
+      helpers._genreMapPromise ??= ApiClient.getJSON(
+        ApiClient.getUrl("Genres", {
+          userId: ApiClient.getCurrentUserId(),
+          Recursive: true,
+          EnableImages: false,
+        }),
+      ).then((r) => new Map(r.Items.map((g) => [g.Name.toLowerCase(), g.Id])));
+      const map = await helpers._genreMapPromise;
+      return map.get(name.toLowerCase());
     },
     shuffle(a) {
       const r = a.slice();
@@ -203,15 +202,18 @@
 
     busy = true;
     try {
-      for (const p of providers) {
-        let rows;
-        try {
-          rows = await p.fn(helpers);
-        } catch (e) {
-          console.warn("[JFHome] Provider-Fehler:", e);
-          continue;
-        }
-        if (!home.isConnected) return; // Seite wurde neu gebaut
+      // Alle Provider parallel abfragen (unabhängige API-Calls), aber die
+      // Reihen weiterhin sequenziell in Provider-Reihenfolge rendern.
+      const results = await Promise.all(
+        providers.map((p) =>
+          p.fn(helpers).catch((e) => {
+            console.warn("[JFHome] Provider-Fehler:", e);
+            return [];
+          }),
+        ),
+      );
+      if (!home.isConnected) return; // Seite wurde neu gebaut
+      for (const rows of results) {
         for (const row of [].concat(rows || [])) await renderRow(home, row);
       }
     } finally {
