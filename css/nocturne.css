@@ -1,0 +1,445 @@
+/*---General---*/
+
+/*Font*/
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
+body {
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "GRAD" 0;
+    overscroll-behavior: none;
+}
+
+@font-face {
+    font-family: 'Material Icons Round';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons-round.woff2) format('woff2');
+}
+
+/*Material icons*/
+.material-icons {
+    font-family: 'Material Icons Round' !important;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.material-icons-round,
+.material-symbols-rounded,
+[class*="material-icons"] {
+    font-family: 'Material Icons Round' !important;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+  width: 1em;
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(0,0%,70%);
+}
+
+*{
+	scrollbar-color: white transparent;
+}
+
+/*Variables*/
+:root{
+    --nocturne-radius: 18px;
+
+    --nocturne-btn: 40, 40, 40, 0.8;
+    --nocturne-btn-hover: 75, 75, 75, 0.8;
+    --nocturne-blur: 5px;
+}
+
+/*Globals*/
+* {
+    user-select: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+*:focus {
+    outline: none;
+    border: none;
+}
+
+a{
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+h2{
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+/*Site Background*/
+.backgroundContainer{
+    background: #191919;
+    background: radial-gradient(circle,rgba(35, 35, 40, 1) 0%, rgba(10, 10, 12, 1) 100%);
+}
+
+/*Hidden elements*/
+.lnkHomePreferences,
+.lnkDisplayPreferences,
+.pageTitleWithLogo{
+    display: none !important;
+}
+
+/*Hidden Jellyseerr Elements*/
+#jellyfinEnhancedUserPrefsLink,
+.jellyfinEnhancedSection{
+    display: none !important;
+}
+
+.jellyseerr-icon-on-card,
+.jellyseerr-icon,
+.jellyseerr-rating,
+.jellyseerr-overview-link{
+    display: none !important;
+}
+
+/*---Header---*/
+.skinHeader,
+.skinHeader-withBackground{
+    position: fixed;
+    height: 10vh;
+    padding: 0 3.75em;
+    background-color: transparent !important;
+    display: flex !important;
+}
+
+.headerTabs.sectionTabs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(var(--nocturne-btn));
+    border: solid 3px rgba(var(--nocturne-btn)); 
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+    border-radius: 1000px;
+    padding: 0.4rem;
+    margin: 0;
+}
+
+.emby-tabs-slider{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.emby-tab-button{
+    padding: 0.4em 1.5em;
+    border-radius: 1000px;
+    border: solid 2px transparent;
+    color: rgb(130, 130, 130) !important;
+    transition: background-color 200ms, border-color 200ms, color 200ms !important;
+}
+
+.emby-tab-button:hover{
+    color: white !important;
+}
+
+.emby-tab-button-active{
+    cursor: default !important;
+    color: white !important;
+    border: solid 2px rgba(var(--nocturne-btn-hover)); 
+    background-color: rgba(var(--nocturne-btn-hover));
+}
+
+/*---Buttons---*/
+.cardIndicator .indicator,
+.paper-icon-button-light{
+    padding: 0.35em;
+    accent-color: white !important;
+    color: white !important;
+    border: solid 2px rgba(var(--nocturne-btn));
+    background-color: rgba(var(--nocturne-btn)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+    border-radius: 100% !important;
+    transition: background-color 200ms, border-color 200ms !important;
+}
+
+.paper-icon-button-light:disabled{
+    opacity: 100% !important;
+    background-color: transparent !important;
+}
+
+.paper-icon-button-light:hover:not(:disabled){
+    border-color: rgba(var(--nocturne-btn-hover));
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+}
+
+/*---Vertical Sections---*/
+.verticalSection{
+    margin-bottom: 2rem;
+}
+
+.verticalSection:empty{
+    display: none;
+}
+
+.scrollSlider{
+    transition: transform 270ms ease-out !important;
+}
+
+.emby-scroller{
+    overflow: hidden !important;
+}
+
+/*Section Title*/
+.sectionTitleContainer{
+    padding-top: 0 !important;
+    margin-bottom: 0.75rem;
+}
+
+.jellyseerr-details-section .sectionTitle::after{
+    content: " (Anforderbar)";
+}
+
+/*Clickable Section Titles*/
+.sectionTitleTextButton:not(.padded-left),
+.sectionTitleTextButton{
+    border-radius: var(--nocturne-radius);
+    padding: 0.5em 0.5em 0.5em 1em !important;
+    transform: translateX(-0.5em);
+    transition: background-color 0.2s !important;
+}
+
+.sectionTitleTextButton .sectionTitle{
+    padding: 0 !important;
+    transform: none !important;
+}
+
+.sectionTitleTextButton:hover:not(.disabled) {
+    border-color: rgba(var(--nocturne-btn-hover));
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+}
+
+.sectionTitleTextButton .material-icons.chevron_right{
+    color: rgb(130, 130, 130);
+    font-size: 1.5em;
+    margin-bottom: 0 !important;
+}
+
+/*Scroll Buttons*/
+.emby-scrollbuttons{
+    padding-top: 0 !important;
+    margin-bottom: 0.75rem;
+}
+
+/*Normal Section Titles*/
+.sectionTitle{
+    padding: 0.5em 0.5em 0.5em 1em !important;
+    transform: translateX(-0.5em);
+    margin-bottom: 0 !important;
+}
+
+/*Sideboard*/
+.mainDrawer.drawer-open{
+    padding: 12px;
+    margin: 26px;
+    border-radius: var(--nocturne-radius);
+    border: solid 3px rgba(var(--nocturne-btn));
+    background-color: rgba(var(--nocturne-btn)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+}
+
+.mainDrawer .emby-button{
+    color: rgb(130, 130, 130) !important;
+    border-radius: var(--nocturne-radius) !important;
+    border: solid 2px transparent !important;
+}
+
+.mainDrawer .emby-button:hover{
+    color: white !important;
+    background-color: transparent !important;
+}
+
+.mainDrawer .emby-button.navMenuOption-selected{
+    color: white !important; 
+    border: solid 2px rgba(var(--nocturne-btn-hover)) !important;
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+}
+
+/*---Movie Cards---*/
+.card{
+    padding: 6px;
+    margin-right: 0.5em !important;
+    border-radius: var(--nocturne-radius);
+}
+
+.card:hover:not(.portraitCard) .cardScalable{
+    transform: scale(103%) !important;
+}
+
+.card:hover:not(.portraitCard) .cardText{
+    filter: none;
+}
+
+.cardBox{
+    border: solid 2px transparent !important;
+    padding: 3px !important;
+    margin: 0 !important;
+}
+
+.cardScalable{
+    overflow: hidden !important;
+    border-radius: var(--nocturne-radius) !important;
+    margin-bottom: 0.5em !important;
+    transition: transform 200ms !important;
+}
+
+.cardOverlayContainer{
+    display: none;
+}
+
+/*Card Text*/
+.cardText {
+    position: relative !important;
+    align-items: left !important;
+    filter: brightness(70%);
+    transition: filter 200ms !important;
+}
+
+.cardTextCentered,
+.cardTextCentered>.textActionButton {
+    text-align: left !important;
+}
+
+.cardText-first,
+.cardText .jellyseerr-more-info-link {
+    font-weight: 500;
+    font-size: 1em;
+    max-width: 100%;
+    display: block;
+    text-align: left;
+    
+}
+
+.cardText-secondary{
+    font-weight: 400;
+    font-size: 0.9em;
+}
+
+/*Watches progress bar*/
+.fullInnerCardFooter{
+    bottom: 5%;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+    border-radius: var(--nocturne-radius) !important;
+    overflow: hidden !important;
+}
+
+.fullInnerCardFooter .itemProgressBar{
+    height: 0.4em;
+    background-color: rgba(10, 10, 10, 0.3);
+}
+
+.fullInnerCardFooter .itemProgressBar .itemProgressBarForeground{
+    background-color: white !important;
+}
+
+/*Series Counts*/
+.cardIndicators{
+    top: 8px !important;
+    left: 8px !important;
+}
+
+.countIndicator{
+    background-color: transparent !important;
+    border: none !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+    border-radius: 100%;
+    font-size: 0.9em;
+}
+
+/*Jellyseerr Cards*/
+.jellyseerr-overview{
+    background: none !important;
+    backdrop-filter: none !important;
+}
+
+.cardText .jellyseerr-more-info-link bdi {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.jellyseerr-meta{
+    justify-content: flex-start;
+}
+
+.jellyseerr-status-badge {
+    display: none !important;
+}
+
+.jellyseerr-media-badge{
+    text-transform: capitalize !important;
+    background-color: transparent !important;
+    border: none !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+    border-radius: var(--nocturne-radius);
+    font-size: 0.9em;
+}
+
+.jellyseerr-card-in-library{
+    display: none !important;
+}
+
+.jellyseerr-request-button,
+.jellyseerr-request-button.jellyseerr-button-request,
+.jellyseerr-request-button.jellyseerr-button-processing,
+.jellyseerr-request-button.jellyseerr-button-pending{
+    background-color: rgba(var(--nocturne-btn)) !important;
+    border: none !important;
+    backdrop-filter: blur(var(--nocturne-blur)) brightness(80%) !important;
+    border-radius: var(--nocturne-radius);
+}
+
+.jellyseerr-request-button:hover,
+.jellyseerr-request-button.jellyseerr-button-request:not(:disabled):hover,
+.jellyseerr-request-button.jellyseerr-button-processing:hover,
+.jellyseerr-request-button.jellyseerr-button-pending:hover{
+    transform: none;
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+}
+
+.jellyseerr-hover-popover{
+    display: none !important;
+}

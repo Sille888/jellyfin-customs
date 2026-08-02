@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
+@font-face {
+    font-family: 'Material Icons Round';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons-round.woff2) format('woff2');
+}
+
+body {
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "GRAD" 0;
+    overscroll-behavior: none;
+}
+
+.material-icons {
+    font-family: 'Material Icons Round' !important;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.material-icons-round,
+.material-symbols-rounded,
+[class*="material-icons"] {
+    font-family: 'Material Icons Round' !important;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::-webkit-scrollbar {
+  width: 1em;
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(0,0%,70%);
+}
+
+*{
+	scrollbar-color: white transparent;	
+}
+
+:root{
+    --nocturne-radius: 16px;
+
+    --nocturne-btn: 40, 40, 40, 0.9;
+    --nocturne-btn-hover: 75, 75, 75, 0.9;
+    --nocturne-blur: 10px;
+}
+
+/*General*/
+* {
+    accent-color: rgb(var(--nocturne-accent));
+    user-select: none;
+    transition: none !important;
+}
+
+.backgroundContainer{
+    background: #191919;
+    background: radial-gradient(circle,rgba(40, 35, 40, 1) 0%, rgba(10, 10, 10, 1) 100%);
+}
+
+/*Section title*/
+h2{
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.verticalSection{
+    margin-bottom: 2rem;
+}
+
+.sectionTitleContainer{
+    padding-top: 0 !important;
+    margin-bottom: 1rem;
+}
+
+.emby-scrollbuttons{
+    padding-top: 0 !important;
+    margin-bottom: 1rem;
+}
+
+.sectionTitle{
+    padding: 0.5em 0.5em 0.5em 1em !important;
+    transform: translateX(-0.75em);
+    margin-bottom: 0 !important;
+}
+
+.sectionTitleTextButton:not(.padded-left),
+.sectionTitleTextButton{
+    border-radius: var(--nocturne-radius);
+    padding: 0.5em 0.5em 0.5em 1em !important;
+    transform: translateX(-0.75em);
+    transition: background-color 0.2s !important;
+}
+
+.sectionTitleTextButton .sectionTitle{
+    padding: 0 !important;
+    transform: none !important;
+}
+
+.sectionTitleTextButton:hover:not(.disabled) {
+    border-color: rgba(var(--nocturne-btn-hover));
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) !important;
+}
+
+.sectionTitleTextButton .material-icons.chevron_right{
+    color: rgb(130, 130, 130);
+    font-size: 1.5em;
+    margin-bottom: 0 !important;
+}
+
+.scrollSlider{
+    transition: transform 270ms ease-out !important;
+}
+
+.emby-scroller{
+    overflow: hidden !important;
+}
+
+/*Buttons*/
+.cardIndicator .indicator,
+.paper-icon-button-light{
+    padding: 0.35em;
+    accent-color: white !important;
+    color: white !important;
+    border: solid 2px rgba(var(--nocturne-btn));
+    background-color: rgba(var(--nocturne-btn)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) !important;
+    border-radius: 100% !important;
+    transition: background-color 200ms, border-color 200ms !important;
+}
+
+.paper-icon-button-light:disabled{
+    opacity: 100% !important;
+    background-color: transparent !important;
+}
+
+.paper-icon-button-light:hover:not(:disabled){
+    border-color: rgba(var(--nocturne-btn-hover));
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+}
+
+/*hidden elements*/
+.lnkHomePreferences,
+.lnkDisplayPreferences,
+.pageTitleWithLogo{
+    display: none !important;
+}
+
+/*Cards*/
+.card{
+    padding: 6px;
+    margin-right: 0.5em !important;
+    border-radius: var(--nocturne-radius);
+    transition: background-color 200ms;
+}
+
+.card:hover{
+    background-color: rgba(var(--nocturne-btn-hover)) !important;
+    backdrop-filter: blur(var(--nocturne-blur)) !important;
+}
+
+.card:hover .cardText{
+    filter: none;
+    transition: filter 0.2s;
+}
+
+.cardBox{
+    border: solid 2px transparent !important;
+    padding: 3px !important;
+    margin: 0 !important;
+}
+
+.cardScalable{
+    overflow: hidden !important;
+    border-radius: var(--nocturne-radius) !important;
+    margin-bottom: 0.5em !important;
+}
+
+.cardOverlayContainer{
+    display: none;
+}
+
+.fullInnerCardFooter{
+    bottom: 5%;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    backdrop-filter: blur(var(--nocturne-blur)) !important;
+    border-radius: var(--nocturne-radius) !important;
+    overflow: hidden !important;
+}
+
+.fullInnerCardFooter .itemProgressBar{
+    height: 0.4em;
+    background-color: rgba(10, 10, 10, 0.3);
+}
+
+.fullInnerCardFooter .itemProgressBar .itemProgressBarForeground{
+    background-color: white !important;
+}
+
+a{
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.cardText {
+    position: relative !important;
+    align-items: left !important;
+    filter: brightness(70%);
+}
+
+.cardTextCentered,
+.cardTextCentered>.textActionButton {
+    text-align: left !important;
+}
+
+.cardText-first,
+.cardText .jellyseerr-more-info-link {
+    font-weight: 500;
+    font-size: 1em;
+    max-width: 100%;
+    display: block;
+}
+
+.cardText-secondary{
+    font-weight: 400;
+    font-size: 0.9em;
+}
+
+.cardText .jellyseerr-more-info-link bdi {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*jellyfin enhanced*/
+/*hidden elements*/
+#jellyfinEnhancedUserPrefsLink,
+.jellyfinEnhancedSection{
+    display: none !important;
+}
+
+/*jellyseerr*/
+/*hidden elements*/
+.jellyseerr-icon-on-card,
+.jellyseerr-icon,
+.jellyseerr-rating,
+.jellyseerr-overview-link{
+    display: none !important;
+}
+
+.jellyseerr-overview{
+    background: none !important;
+    backdrop-filter: none !important;
+}
